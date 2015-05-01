@@ -1,0 +1,15 @@
+{
+    "dbs": [
+        {
+            "db-name": "service",
+            "data":
+                    {
+                        "userName": "jkwebservice",
+                        "passWord": "12345",
+                        "server": "mongolab.com",
+                        "port": 29541,
+                        "db": "webservice"
+                    }
+        }
+    ]
+}
