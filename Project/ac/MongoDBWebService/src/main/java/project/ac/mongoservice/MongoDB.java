@@ -23,6 +23,7 @@ import javax.jws.WebParam;
 import javax.servlet.ServletContext;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import project.ac.mongolib.driven.CriterioActualizacion;
 import project.ac.mongolib.driven.MongoHandler;
 import project.ac.mongolib.file.FileDriver;
 
@@ -54,7 +55,7 @@ public class MongoDB {
             try {
                 getServletContext().log("add: class = " + className);
                 getServletContext().log("add: data  = " + data);
-                System.out.println("------------- CARGANDO BASE DE DATOS -------------");
+                System.out.println("------------- AÑADIENDO A LA BASE DE DATOS -------------");
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.insert(obj);
@@ -85,11 +86,11 @@ public class MongoDB {
             try {
                 getServletContext().log("delete: class = " + className);
                 getServletContext().log("delete: data  = " + data);
-                System.out.println("------------- CARGANDO BASE DE DATOS -------------");
+                System.out.println("------------- REMOVIENDO DE LA BASE DE DATOS -------------");
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.remove(obj);
-                System.out.println("------------- OBJETO ELIMINADO -------------");
+                System.out.println("------------- OBJETO REMOVIDO -------------");
             } catch (UnknownHostException ex) {
                 return "Object Coundnt be Removed";
             }
@@ -102,24 +103,24 @@ public class MongoDB {
     /**
      * Web service operation
      *
-     * @param clase
+     * @param className
      * @param atribute
      * @param data
      * @return
      */
     //<editor-fold defaultstate="collapsed" desc="Metodo :: find(String, String, String)">
     @WebMethod(operationName = "find")
-    public String find(@WebParam(name = "clase") String clase,
-            @WebParam(name = "atribute") String atribute, @WebParam(name = "data") String data) {
+    public String find(@WebParam(name = "className") String className, @WebParam(name = "atribute") String atribute,
+            @WebParam(name = "data") String data) {
         LinkedList<BasicDBObject> r;
         String found = "";
 
         try {
-            BasicDBObject obj = (BasicDBObject) Class.forName(clase).newInstance();
-            getServletContext().log("find: class = " + clase);
+            BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
+            getServletContext().log("find: class = " + className);
             getServletContext().log("find: atribute  = " + atribute);
             getServletContext().log("find: data  = " + data);
-            System.out.println("------------- CARGANDO BASE DE DATOS -------------");
+            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             r = (LinkedList<BasicDBObject>) mongoHandler.find(obj.getClass(), atribute, data);
@@ -143,24 +144,25 @@ public class MongoDB {
 
     /**
      * Web service operation
+     *
      * @param className
-     * @return 
+     * @return
      */
     //<editor-fold defaultstate="collapsed" desc="Metodo :: findAll(String)">
     @WebMethod(operationName = "findAll")
     public String findAll(@WebParam(name = "className") String className) {
         LinkedList<BasicDBObject> rAll;
         String foundAll = "";
-        
+
         try {
-            System.out.println("class: "+className);
+            System.out.println("class: " + className);
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
             getServletContext().log("findAll: class = " + className);
-            System.out.println("------------- CARGANDO BASE DE DATOS -------------");
+            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             rAll = (LinkedList<BasicDBObject>) mongoHandler.findAll(obj.getClass());
-            
+
             if (rAll.size() == 0) {
                 return "Objects not Found or Dont Exist";
             } else {
@@ -176,6 +178,44 @@ public class MongoDB {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             return "The Class Coundnt be Charged";
         }
+    }
+//</editor-fold>
+
+    /**
+     * Web service operation
+     *
+     * @param className
+     * @param criterioClave
+     * @param criterioValor
+     * @param atributoClave
+     * @param atributoValor
+     * @return
+     */
+    //<editor-fold defaultstate="collapsed" desc="Metodo :: update(String, String, String, String, String)">
+    @WebMethod(operationName = "update")
+    public String update(@WebParam(name = "className") String className,
+            @WebParam(name = "criterioClave") String criterioClave, @WebParam(name = "criterioValor") String criterioValor,
+            @WebParam(name = "atributoClave") String atributoClave, @WebParam(name = "atributoValor") String atributoValor) {
+
+        try {
+            getServletContext().log("update: class = " + className);
+            getServletContext().log("update: criterioClave = " + criterioClave);
+            getServletContext().log("update: criterioValor = " + criterioValor);
+            getServletContext().log("update: atributoClave = " + atributoClave);
+            getServletContext().log("update: atributoValor = " + atributoValor);
+            BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
+            CriterioActualizacion cAct = new CriterioActualizacion();
+            cAct.setCriterio(criterioClave, criterioValor);
+            cAct.setNuevoValor(atributoClave, atributoValor);
+
+            System.out.println("------------- MODIFICANDO LA BASE DE DATOS -------------");
+            DBObject fileData = chargeJson();
+            MongoHandler mongoHandler = new MongoHandler("service", fileData);
+            mongoHandler.update(obj.getClass(), cAct);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnknownHostException ex) {
+            return "There was a Mistake or a Error, Try Again";
+        }
+        return "Atribute was Updated";
     }
 //</editor-fold>
 
@@ -227,20 +267,18 @@ public class MongoDB {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            System.out.println("error create()");
         }
-        
         return o;
     }
 //</editor-fold>
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     //<editor-fold defaultstate="collapsed" desc="private Metodo :: chargeJson()">
     private DBObject chargeJson() {
-        
+
         InputStream json = getServletContext().getResourceAsStream("/WEB-INF/db-data.json");
         String cad = "";
         int v;

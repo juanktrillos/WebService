@@ -21,6 +21,12 @@ JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-re
     <message name="addResponse">
         <part name="parameters" element="tns:addResponse"/>
     </message>
+    <message name="update">
+        <part name="parameters" element="tns:update"/>
+    </message>
+    <message name="updateResponse">
+        <part name="parameters" element="tns:updateResponse"/>
+    </message>
     <message name="find">
         <part name="parameters" element="tns:find"/>
     </message>
@@ -44,28 +50,41 @@ JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-re
     </message>
     <portType name="MongoDB">
         <operation name="add">
-            <input wsam:Action="http://mongoservice.ac.project/MongoDB/addRequest" message="tns:add"/>
-            <output wsam:Action="http://mongoservice.ac.project/MongoDB/addResponse" message="tns:addResponse"/>
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/addRequest" message="tns:add"/>
+            <output wsam:Action="http://mongoservice.uni.project/MongoDB/addResponse" message="tns:addResponse"/>
+        </operation>
+        <operation name="update">
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/updateRequest" message="tns:update"/>
+            <output wsam:Action="http://mongoservice.uni.project/MongoDB/updateResponse" message="tns:updateResponse"/>
         </operation>
         <operation name="find">
-            <input wsam:Action="http://mongoservice.ac.project/MongoDB/findRequest" message="tns:find"/>
-            <output wsam:Action="http://mongoservice.ac.project/MongoDB/findResponse" message="tns:findResponse"/>
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/findRequest" message="tns:find"/>
+            <output wsam:Action="http://mongoservice.uni.project/MongoDB/findResponse" message="tns:findResponse"/>
         </operation>
         <operation name="delete">
-            <input wsam:Action="http://mongoservice.ac.project/MongoDB/deleteRequest" message="tns:delete"/>
-            <output wsam:Action="http://mongoservice.ac.project/MongoDB/deleteResponse" message="tns:deleteResponse"/>
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/deleteRequest" message="tns:delete"/>
+            <output wsam:Action="http://mongoservice.uni.project/MongoDB/deleteResponse" message="tns:deleteResponse"/>
         </operation>
         <operation name="findAll">
-            <input wsam:Action="http://mongoservice.ac.project/MongoDB/findAllRequest" message="tns:findAll"/>
-            <output wsam:Action="http://mongoservice.ac.project/MongoDB/findAllResponse" message="tns:findAllResponse"/>
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/findAllRequest" message="tns:findAll"/>
+            <output wsam:Action="http://mongoservice.uni.project/MongoDB/findAllResponse" message="tns:findAllResponse"/>
         </operation>
         <operation name="log">
-            <input wsam:Action="http://mongoservice.ac.project/MongoDB/log" message="tns:log"/>
+            <input wsam:Action="http://mongoservice.uni.project/MongoDB/log" message="tns:log"/>
         </operation>
     </portType>
     <binding name="MongoDBPortBinding" type="tns:MongoDB">
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
         <operation name="add">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="update">
             <soap:operation soapAction=""/>
             <input>
                 <soap:body use="literal"/>
