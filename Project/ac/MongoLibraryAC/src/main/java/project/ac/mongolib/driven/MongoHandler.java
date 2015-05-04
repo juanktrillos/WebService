@@ -5,7 +5,6 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import java.io.InputStream;
 import project.ac.mongolib.service.ConnectFactory;
 import project.ac.mongolib.service.MongoData;
 import java.net.UnknownHostException;

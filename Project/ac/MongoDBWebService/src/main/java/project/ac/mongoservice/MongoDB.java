@@ -53,9 +53,9 @@ public class MongoDB {
         BasicDBObject obj = create(className, data);
         if (obj != null) {
             try {
+                System.out.println("------------- AÑADIENDO A LA BASE DE DATOS -------------");
                 getServletContext().log("add: class = " + className);
                 getServletContext().log("add: data  = " + data);
-                System.out.println("------------- AÑADIENDO A LA BASE DE DATOS -------------");
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.insert(obj);
@@ -84,9 +84,9 @@ public class MongoDB {
         BasicDBObject obj = create(className, data);
         if (obj != null) {
             try {
+                System.out.println("------------- REMOVIENDO DE LA BASE DE DATOS -------------");
                 getServletContext().log("delete: class = " + className);
                 getServletContext().log("delete: data  = " + data);
-                System.out.println("------------- REMOVIENDO DE LA BASE DE DATOS -------------");
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.remove(obj);
@@ -116,11 +116,11 @@ public class MongoDB {
         String found = "";
 
         try {
+            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
             getServletContext().log("find: class = " + className);
             getServletContext().log("find: atribute  = " + atribute);
             getServletContext().log("find: data  = " + data);
-            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             r = (LinkedList<BasicDBObject>) mongoHandler.find(obj.getClass(), atribute, data);
@@ -155,10 +155,10 @@ public class MongoDB {
         String foundAll = "";
 
         try {
+            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             System.out.println("class: " + className);
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
             getServletContext().log("findAll: class = " + className);
-            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             rAll = (LinkedList<BasicDBObject>) mongoHandler.findAll(obj.getClass());
@@ -198,6 +198,7 @@ public class MongoDB {
             @WebParam(name = "atributoClave") String atributoClave, @WebParam(name = "atributoValor") String atributoValor) {
 
         try {
+            System.out.println("------------- MODIFICANDO LA BASE DE DATOS -------------");
             getServletContext().log("update: class = " + className);
             getServletContext().log("update: criterioClave = " + criterioClave);
             getServletContext().log("update: criterioValor = " + criterioValor);
@@ -208,10 +209,10 @@ public class MongoDB {
             cAct.setCriterio(criterioClave, criterioValor);
             cAct.setNuevoValor(atributoClave, atributoValor);
 
-            System.out.println("------------- MODIFICANDO LA BASE DE DATOS -------------");
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             mongoHandler.update(obj.getClass(), cAct);
+            System.out.println("------------- BASE DE DATOS MODIFICADA-------------");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnknownHostException ex) {
             return "There was a Mistake or a Error, Try Again";
         }
@@ -229,7 +230,7 @@ public class MongoDB {
     public void logServer(@WebParam(name = "message") String text) {
         // log message onto server
         getServletContext().log(text);
-    }
+        }
 
     /**
      * Get ServletContext.

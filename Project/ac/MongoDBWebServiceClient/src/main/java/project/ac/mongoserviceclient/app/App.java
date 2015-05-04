@@ -7,10 +7,11 @@ package project.ac.mongoserviceclient.app;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
+import java.util.LinkedList;
 import java.util.Set;
 import project.ac.mongoservice.MongoDB;
 import project.ac.mongoservice.MongoDB_Service;
-import project.ac.mongoserviceclient.data.Persona;
+import project.ac.mongoserviceclient.data.Selector;
 
 /**
  *
@@ -28,20 +29,20 @@ public class App {
 
         App app = new App();
         port = app.getMongoDBPort();
-
-//        Persona p = new Persona("TRILLOS", 20, "ING", "2130101");
-//        String className = Persona.class.getCanonicalName();
-
+        String className = Selector.class.getCanonicalName();
+        
+        
         port.log("MongoDB STARTED");
-
+        
         //ADD OBJECT
 //        addCollection(className, p.toString());
-
         //REMOVE OBJECT
 //        removeCollection(className, p.toString());
-
         //FIND OBJECT(S)
-//        findCollection(className, "nombre", "camilo");
+//        LinkedList findCollection = findCollection(className, Selector.nombre, "Selector A");
+//        for (Object findCollection1 : findCollection) {
+//            System.out.println("Hola: "+ findCollection1.toString());
+        
 
         //FIND ALL OBJECTS
 //        findAllCollection(className);
@@ -52,7 +53,7 @@ public class App {
         port.log("MongoDB FINISHED");
     }
 
-    private static void addCollection(String className, String data) {
+    private void addCollection(String className, String data) {
 
         String message = port.add(className, data);
         port.log(message);
@@ -66,17 +67,19 @@ public class App {
         System.out.println(delete);
     }
 
-    private static void findCollection(String className, String atributo, String data) {
+    private static LinkedList findCollection(String className, String atributo, String data) {
 
+        LinkedList<BasicDBObject> list = new LinkedList<>();
         String find = port.find(className, atributo, data);
         String[] found = find.split("&&");
-        for (int i = 0; i < found.length; i++) {
-            System.out.println("Object " + (i + 1) + ": " + found[i]);
-            port.log("Object " + (i + 1) + ": " + found[i]);
+        for (String f : found) {
+//            port.log("Object " + (i + 1) + ": " + found[i]);
+            list.add(create(className, f));
         }
+        return list;
     }
 
-    private static void findAllCollection(String className) {
+    private void findAllCollection(String className) {
 
         String findAll = port.findAll(className);
         String[] foundAll = findAll.split("&&");
@@ -86,7 +89,7 @@ public class App {
         }
     }
 
-    private static void updateCollection(String className, String cClave, String cValor, String aClave, String aValor) {
+    private void updateCollection(String className, String cClave, String cValor, String aClave, String aValor) {
 
         String update = port.update(className, cClave, cValor, aClave, aValor);
         port.log(update);
@@ -111,6 +114,7 @@ public class App {
             if (clase != null) {
                 o = (BasicDBObject) clase.newInstance();
                 if (o != null) {
+                    System.out.println(data);
                     BasicDBObject obj = (BasicDBObject) JSON.parse(data);
                     Set<String> keys = obj.keySet();
                     for (String key : keys) {
