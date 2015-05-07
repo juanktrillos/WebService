@@ -29,27 +29,7 @@ public class App {
 
         App app = new App();
         port = app.getMongoDBPort();
-        String className = Selector.class.getCanonicalName();
-        
-        
         port.log("MongoDB STARTED");
-        
-        //ADD OBJECT
-//        addCollection(className, p.toString());
-        //REMOVE OBJECT
-//        removeCollection(className, p.toString());
-        //FIND OBJECT(S)
-//        LinkedList findCollection = findCollection(className, Selector.nombre, "Selector A");
-//        for (Object findCollection1 : findCollection) {
-//            System.out.println("Hola: "+ findCollection1.toString());
-        
-
-        //FIND ALL OBJECTS
-//        findAllCollection(className);
-
-        //UPDATE ATRIBUTE OBJECT
-//        updateCollection(className, Persona.NOMBRE, "Juan Camilo T", Persona.NOMBRE, "camilo");
-
         port.log("MongoDB FINISHED");
     }
 
