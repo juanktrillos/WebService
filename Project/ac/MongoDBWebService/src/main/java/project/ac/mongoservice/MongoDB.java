@@ -230,7 +230,7 @@ public class MongoDB {
     public void logServer(@WebParam(name = "message") String text) {
         // log message onto server
         getServletContext().log(text);
-        }
+    }
 
     /**
      * Get ServletContext.

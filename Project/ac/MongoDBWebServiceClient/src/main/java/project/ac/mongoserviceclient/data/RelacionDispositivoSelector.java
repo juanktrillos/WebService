@@ -8,20 +8,18 @@ import java.util.Set;
  *
  * @author oarcila
  */
-public class RelacionDispositivoSelector extends BasicDBObject
-{
+public class RelacionDispositivoSelector extends BasicDBObject {
+
     public static final String idDispositivo = "idDispositivo";
     public static final String idSelector = "idSelector";
-    
+
     private boolean partial;
-    
-    public RelacionDispositivoSelector()
-    {
+
+    public RelacionDispositivoSelector() {
         partial = false;
     }
 
-    public RelacionDispositivoSelector(String idDispositivo, String idSelector)
-    {
+    public RelacionDispositivoSelector(String idDispositivo, String idSelector) {
         this.put(RelacionDispositivoSelector.idDispositivo, idDispositivo);
         this.put(RelacionDispositivoSelector.idSelector, idSelector);
 
@@ -29,8 +27,7 @@ public class RelacionDispositivoSelector extends BasicDBObject
     }
 
     @Override
-    public final void markAsPartialObject()
-    {
+    public final void markAsPartialObject() {
         Set<String> set = keySet();
         set.remove("_id");
 
@@ -42,35 +39,29 @@ public class RelacionDispositivoSelector extends BasicDBObject
     }
 
     @Override
-    public boolean isPartialObject()
-    {
+    public boolean isPartialObject() {
         return partial;
     }
 
-    public void setIdDispositivo(String idSelector)
-    {
+    public void setIdDispositivo(String idSelector) {
         this.put(RelacionDispositivoSelector.idDispositivo, idDispositivo);
     }
 
-    public String getIdDispositivo()
-    {
+    public String getIdDispositivo() {
         return this.getString(RelacionDispositivoSelector.idDispositivo);
     }
 
-    public void setIdSelector(String idSelector)
-    {
+    public void setIdSelector(String idSelector) {
         this.put(RelacionDispositivoSelector.idSelector, idSelector);
     }
 
-    public String getIdSelector()
-    {
+    public String getIdSelector() {
         return this.getString(RelacionDispositivoSelector.idSelector);
     }
-    
+
 //    @Override
 //    public String toString()
 //    {
 //        return getIdDispositivo() + " " + getIdSelector();
 //    }
-
 }

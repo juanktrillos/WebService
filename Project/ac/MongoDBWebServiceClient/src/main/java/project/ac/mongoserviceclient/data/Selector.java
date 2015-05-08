@@ -8,21 +8,18 @@ import java.util.Set;
  *
  * @author oarcila
  */
-public class Selector extends BasicDBObject
-{
+public class Selector extends BasicDBObject {
 
     public static final String nombre = "nombre";
     public static final String activo = "activo";
 
     private boolean partial;
 
-    public Selector()
-    {
+    public Selector() {
         partial = false;
     }
 
-    public Selector(String nombre, Boolean activo)
-    {
+    public Selector(String nombre, Boolean activo) {
         this.put(Selector.nombre, nombre);
         this.put(Selector.activo, activo);
 
@@ -30,8 +27,7 @@ public class Selector extends BasicDBObject
     }
 
     @Override
-    public final void markAsPartialObject()
-    {
+    public final void markAsPartialObject() {
         Set<String> set = keySet();
         set.remove("_id");
 
@@ -43,28 +39,24 @@ public class Selector extends BasicDBObject
     }
 
     @Override
-    public boolean isPartialObject()
-    {
+    public boolean isPartialObject() {
         return partial;
     }
 
-    public void setNombre(String nombre)
-    {
+    public void setNombre(String nombre) {
         this.put(Selector.nombre, nombre);
     }
 
-    public String getNombre()
-    {
+    public String getNombre() {
         return this.getString(Selector.nombre);
     }
 
-    public void setActivo(String activo)
-    {
+    public void setActivo(String activo) {
         this.put(Selector.activo, activo);
     }
 
-    public Boolean getActivo()
-    {
+    public Boolean getActivo() {
+        this.put(Selector.activo, Boolean.valueOf(get(Selector.activo).toString()));
         return this.getBoolean(Selector.activo);
     }
 

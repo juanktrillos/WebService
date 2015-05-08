@@ -8,8 +8,7 @@ import java.util.Set;
  *
  * @author oarcila
  */
-public class SelectorValor extends BasicDBObject
-{
+public class SelectorValor extends BasicDBObject {
 
     public static final String idSelector = "idSelector";
     public static final String luz = "luz";
@@ -17,13 +16,11 @@ public class SelectorValor extends BasicDBObject
 
     private boolean partial;
 
-    public SelectorValor()
-    {
+    public SelectorValor() {
         partial = false;
     }
 
-    public SelectorValor(String idSelector, Boolean luz, Integer valor)
-    {
+    public SelectorValor(String idSelector, Boolean luz, Integer valor) {
         this.put(SelectorValor.idSelector, idSelector);
         this.put(SelectorValor.luz, luz);
         this.put(SelectorValor.valor, valor);
@@ -32,8 +29,7 @@ public class SelectorValor extends BasicDBObject
     }
 
     @Override
-    public final void markAsPartialObject()
-    {
+    public final void markAsPartialObject() {
         Set<String> set = keySet();
         set.remove("_id");
 
@@ -46,41 +42,36 @@ public class SelectorValor extends BasicDBObject
     }
 
     @Override
-    public boolean isPartialObject()
-    {
+    public boolean isPartialObject() {
         return partial;
     }
 
-    public void setIdSelector(String idSelector)
-    {
+    public void setIdSelector(String idSelector) {
         this.put(SelectorValor.idSelector, idSelector);
     }
 
-    public String getIdSelector()
-    {
+    public String getIdSelector() {
         return this.getString(SelectorValor.idSelector);
     }
 
-    public void setLuz(Boolean luz)
-    {
+    public void setLuz(Boolean luz) {
         this.put(SelectorValor.luz, luz);
     }
 
-    public Boolean getLuz()
-    {
+    public Boolean getLuz() {
+        this.put(SelectorValor.luz, Boolean.valueOf(get(SelectorValor.luz).toString()));
         return this.getBoolean(SelectorValor.luz);
     }
 
-    public void setValor(Integer valor)
-    {
+    public void setValor(Integer valor) {
         this.put(SelectorValor.valor, valor);
     }
 
-    public Integer getValor()
-    {
+    public Integer getValor() {
+        this.put(SelectorValor.valor, Integer.valueOf(get(SelectorValor.valor).toString()));
         return this.getInt(SelectorValor.valor);
     }
-
+//
 //    @Override
 //    public String toString()
 //    {

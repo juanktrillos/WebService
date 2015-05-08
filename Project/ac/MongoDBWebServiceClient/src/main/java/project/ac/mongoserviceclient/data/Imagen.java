@@ -15,28 +15,24 @@ import javax.imageio.ImageIO;
  *
  * @author olarguz
  */
-public class Imagen extends BasicDBObject
-{
+public class Imagen extends BasicDBObject {
+
     public static String NOMBRE = "nombre";
     public static String TIPO = "tipo";
     public static String IMAGEN = "imagen";
     private boolean partial;
 
-    public Imagen()
-    {
+    public Imagen() {
         partial = false;
     }
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public Imagen(String nombre, String referencia, BufferedImage imagen)
-    {
+    public Imagen(String nombre, String referencia, BufferedImage imagen) {
         this.put(Imagen.NOMBRE, nombre);
         this.put(Imagen.TIPO, referencia);
-        try
-        {
+        try {
             this.put(Imagen.IMAGEN, convertir(imagen));
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
 //            Logger.getLogger(Imagen.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -44,8 +40,7 @@ public class Imagen extends BasicDBObject
     }
 
     @Override
-    public void markAsPartialObject()
-    {
+    public void markAsPartialObject() {
         Set<String> set = keySet();
         set.remove("_id");
 
@@ -58,16 +53,13 @@ public class Imagen extends BasicDBObject
     }
 
     @Override
-    public boolean isPartialObject()
-    {
+    public boolean isPartialObject() {
         return partial;
     }
-    
-    private byte[] convertir(BufferedImage originalImage) throws IOException
-    {
+
+    private byte[] convertir(BufferedImage originalImage) throws IOException {
         byte[] imageInByte;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream())
-        {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             String tipo = getString(TIPO);
             ImageIO.write(originalImage, tipo, baos);
             baos.flush();
@@ -77,25 +69,20 @@ public class Imagen extends BasicDBObject
         return imageInByte;
     }
 
-    public String getNombre()
-    {
+    public String getNombre() {
         return getString(NOMBRE);
     }
 
-    public String getTipo()
-    {
+    public String getTipo() {
         return getString(TIPO);
     }
 
-    public BufferedImage getImage ()
-    {
+    public BufferedImage getImage() {
         BufferedImage bufferedImage = null;
-        byte [] data = (byte[]) get(IMAGEN);
-        try
-        {
+        byte[] data = (byte[]) get(IMAGEN);
+        try {
             bufferedImage = ImageIO.read(new ByteArrayInputStream(data));
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(Imagen.class.getName()).log(Level.SEVERE, null, ex);
         }
         return bufferedImage;

@@ -9,8 +9,7 @@ import java.util.Set;
  *
  * @author oarcila
  */
-public class CambiosSelectorValor extends BasicDBObject
-{
+public class CambiosSelectorValor extends BasicDBObject {
 
     public static final String idUsuario = "idUsuario";
     public static final String idSelector = "idSelector";
@@ -20,13 +19,11 @@ public class CambiosSelectorValor extends BasicDBObject
 
     private boolean partial;
 
-    public CambiosSelectorValor()
-    {
+    public CambiosSelectorValor() {
         partial = false;
     }
 
-    public CambiosSelectorValor(String idUsuario, String idSelector, Date date, Boolean luz, Integer valor)
-    {
+    public CambiosSelectorValor(String idUsuario, String idSelector, Date date, Boolean luz, Integer valor) {
         this.put(CambiosSelectorValor.idUsuario, idUsuario);
         this.put(CambiosSelectorValor.idSelector, idSelector);
         this.put(CambiosSelectorValor.date, date);
@@ -37,8 +34,7 @@ public class CambiosSelectorValor extends BasicDBObject
     }
 
     @Override
-    public final void markAsPartialObject()
-    {
+    public final void markAsPartialObject() {
         Set<String> set = keySet();
         set.remove("_id");
 
@@ -53,58 +49,47 @@ public class CambiosSelectorValor extends BasicDBObject
     }
 
     @Override
-    public boolean isPartialObject()
-    {
+    public boolean isPartialObject() {
         return partial;
     }
 
-    public void setIdUsuario(String idUsuario)
-    {
+    public void setIdUsuario(String idUsuario) {
         this.put(CambiosSelectorValor.idUsuario, idUsuario);
     }
 
-    public String getIdUsuario()
-    {
+    public String getIdUsuario() {
         return this.getString(CambiosSelectorValor.idUsuario);
     }
 
-    public void setIdSelector(String idSelector)
-    {
+    public void setIdSelector(String idSelector) {
         this.put(CambiosSelectorValor.idSelector, idSelector);
     }
 
-    public String getIdSelector()
-    {
+    public String getIdSelector() {
         return this.getString(CambiosSelectorValor.idSelector);
     }
 
-    public void setDate(Date date)
-    {
+    public void setDate(Date date) {
         this.put(CambiosSelectorValor.date, date);
     }
 
-    public Date getDate()
-    {
+    public Date getDate() {
         return (Date) this.get(CambiosSelectorValor.date);
     }
 
-    public void setLuz(Boolean luz)
-    {
+    public void setLuz(Boolean luz) {
         this.put(CambiosSelectorValor.luz, luz);
     }
 
-    public Boolean getLuz()
-    {
+    public Boolean getLuz() {
         return this.getBoolean(CambiosSelectorValor.luz);
     }
 
-    public void setValor(Integer valor)
-    {
+    public void setValor(Integer valor) {
         this.put(CambiosSelectorValor.valor, valor);
     }
 
-    public Integer getValor()
-    {
+    public Integer getValor() {
         return this.getInt(CambiosSelectorValor.valor);
     }
 
@@ -113,5 +98,4 @@ public class CambiosSelectorValor extends BasicDBObject
 //    {
 //        return getIdUsuario() + " " + getIdSelector() + " " + getDate() + " " + getLuz() + " " + getValor();
 //    }
-
 }
