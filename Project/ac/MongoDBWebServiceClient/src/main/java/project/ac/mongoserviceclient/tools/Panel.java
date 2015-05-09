@@ -49,18 +49,18 @@ public class Panel extends JPanel {
         //672 440
         x0 = 50;
         xf0 = 650;
-        xIny0 = 215;
+        xIny0 = 480;
 
-        y0 = 70;
-        yf0 = 215;
+        y0 = 260;
+        yf0 = 480;
         yInx0 = 50;
 
         x1 = 50;
         xf1 = 650;
-        xIny1 = 410;
+        xIny1 = 650;
 
-        y1 = 250;
-        yf1 = 410;
+        y1 = 500;
+        yf1 = 650;
         yInx1 = 50;
 
         arrows = 10;
