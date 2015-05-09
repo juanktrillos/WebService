@@ -12,6 +12,7 @@ import project.ac.mongoserviceclient.data.Dispositivo;
 import project.ac.mongoserviceclient.data.RelacionDispositivoSelector;
 import project.ac.mongoserviceclient.data.Selector;
 import project.ac.mongoserviceclient.data.SelectorValor;
+import project.ac.mongoserviceclient.tools.Panel;
 
 /**
  *
@@ -24,6 +25,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     private String nombreDispositivo;
     private Selector selector;
     private SelectorValor selectorValor;
+    private Panel panel;
 
     /**
      * Creates new form NewJFrame
@@ -31,13 +33,16 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     public TestUsoDispositivo() {
         initComponents();
         port = getMongoDBPort();
+        panel = new Panel();
+        panel.setSize(fondo.getSize());
+        fondo.add(panel);
 
         nombreDispositivo = "First Device";
         cargarValoresSelector(nombreDispositivo);
 
         if (bSelector.isEnabled()) {
             configurarInicioGUI();
-        }
+    }
 
     }
 
@@ -99,8 +104,11 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         sNivelLuz = new javax.swing.JSlider();
         tNivelLuz = new javax.swing.JLabel();
+        fondo = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 700));
 
         bSelector.setText("Encender");
         bSelector.addActionListener(new java.awt.event.ActionListener() {
@@ -131,44 +139,72 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         tNivelLuz.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tNivelLuz.setText("0");
 
+        javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
+        fondo.setLayout(fondoLayout);
+        fondoLayout.setHorizontalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        fondoLayout.setVerticalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 274, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sNivelLuz, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(bSelector)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tEstadoSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tNivelLuz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addComponent(sNivelLuz, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(156, 156, 156)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bSelector)
+                                .addGap(18, 18, 18)
+                                .addComponent(tEstadoSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tNivelLuz, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2)
-                .addGap(19, 19, 19)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSelector)
                     .addComponent(tEstadoSelector)
                     .addComponent(tNivelLuz))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(sNivelLuz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -203,6 +239,22 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         actualizarValorAlmacenadoNivel(selectorValor);
         insertarNuevoValorCambio(selector, selectorValor);
     }//GEN-LAST:event_sNivelLuzMouseReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        fondo.setVisible(!fondo.isVisible());
+        if (fondo.isVisible()) {
+            monitorearCambioSectorValor();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void monitorearCambioSectorValor() {
+        LinkedList<CambiosSelectorValor> csv = (LinkedList<CambiosSelectorValor>)//
+                findAllCollection(CambiosSelectorValor.class.getCanonicalName());
+        for (CambiosSelectorValor obj : csv) {
+            panel.graphic(fondo.getGraphics(),obj.getValor(),obj.getLuz());
+        }
+    }
 
     private void actualizarValorAlmacenadoLuz(SelectorValor selectorValor) {
 //        CriterioActualizacion criterioActualizacion = new CriterioActualizacion();
@@ -265,14 +317,15 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         return list;
     }
 
-    private void findAllCollection(String className) {
+    private LinkedList findAllCollection(String className) {
 
+        LinkedList<BasicDBObject> list = new LinkedList<>();
         String findAll = port.findAll(className);
         String[] foundAll = findAll.split("&&");
-        for (int i = 0; i < foundAll.length; i++) {
-            System.out.println("Object " + (i + 1) + ": " + foundAll[i]);
-            port.log("Object " + (i + 1) + ": " + foundAll[i]);
+        for (String found : foundAll) {
+            list.add(create(className, found));
         }
+        return list;
     }
 
     private void updateCollection(String className, String cClave, String cValor, String aClave, String aValor) {
@@ -324,7 +377,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 
@@ -339,6 +392,8 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bSelector;
+    private javax.swing.JPanel fondo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSlider sNivelLuz;
