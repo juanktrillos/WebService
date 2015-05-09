@@ -5,7 +5,6 @@
  */
 package project.ac.mongoserviceclient.tools;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -43,6 +42,9 @@ public class Panel extends JPanel {
     // distance of coordinate strings from axis
     private final int distString;
 
+    private int xvalor;
+    private int yvalor;
+
     public Panel() {
         //672 440
         x0 = 50;
@@ -67,21 +69,15 @@ public class Panel extends JPanel {
         origen = 6;
         distString = 20;
 
+        xvalor = xIny1;
+        yvalor = yInx1;
+
         setVisible(true);//se puede visualizar el JPanel
         setLayout(null);//permite organizar el contenido del panel libremente, sin restricciones
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-    }
-
     public void graphic(Graphics graphics, Integer valor, Boolean luz) {
 
-        super.paint(graphics);
-        Graphics2D g2 = (Graphics2D) graphics;
-        
-        System.out.println("hola cmo estas");
     }
 
     @Override
