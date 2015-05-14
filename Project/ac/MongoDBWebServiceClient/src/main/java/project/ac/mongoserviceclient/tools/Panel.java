@@ -5,10 +5,13 @@
  */
 package project.ac.mongoserviceclient.tools;
 
+import com.mongodb.BasicDBObject;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.LinkedList;
 import javax.swing.JPanel;
+import project.ac.mongoserviceclient.data.CambiosSelectorValor;
 
 /**
  *
@@ -16,68 +19,14 @@ import javax.swing.JPanel;
  */
 public class Panel extends JPanel {
 
-    // x-axis coord constants
-    private final int x0;
-    private final int xf0;
-    private final int xIny0;
-
-    private final int x1;
-    private final int xf1;
-    private final int xIny1;
-    // y-axis coord constants
-    private final int y0;
-    private final int yf0;
-    private final int yInx0;
-
-    private final int y1;
-    private final int yf1;
-    private final int yInx1;
-    //arrows of axis are represented with "hipotenuse" of 
-    //triangle
-    // now we are define length of cathetas of that triangle
-    private final int arrows;
-    private final int scales;
-    // size of start coordinate lenght
-    private final int origen;
-    // distance of coordinate strings from axis
-    private final int distString;
-
-    private int xvalor;
-    private int yvalor;
+    private LinkedList<CambiosSelectorValor> list;
 
     public Panel() {
-        //672 440
-        x0 = 50;
-        xf0 = 650;
-        xIny0 = 480;
 
-        y0 = 260;
-        yf0 = 480;
-        yInx0 = 50;
-
-        x1 = 50;
-        xf1 = 650;
-        xIny1 = 600;
-
-        y1 = 500;
-        yf1 = 600;
-        yInx1 = 50;
-
-        arrows = 10;
-        scales = 5;
-
-        origen = 6;
-        distString = 20;
-
-        xvalor = xIny1;
-        yvalor = yInx1;
+        list = new LinkedList<>();
 
         setVisible(true);//se puede visualizar el JPanel
         setLayout(null);//permite organizar el contenido del panel libremente, sin restricciones
-    }
-
-    public void graphic(Graphics graphics, Integer valor, Boolean luz) {
-
     }
 
     @Override
@@ -86,88 +35,140 @@ public class Panel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        int[] data_1 = graphic(g2, 622, 25, 200, 31, 101, 20, 10);
+        int[] data_2 = graphic(g2, 622, 240, 400, 31, 2, 5, 1);
 
-        // x-axis
-        g2.drawLine(x0, xIny0, xf0, xIny0);
-        g2.drawLine(x1, xIny1, xf1, xIny1);
-        // y-axis
-        g2.drawLine(yInx0, y0, yInx0, yf0);
-        g2.drawLine(yInx1, y1, yInx1, yf1);
+        graphicData_1(g2, data_1);
+        graphicData_2(g2, data_2);
+    }
 
-        // x-axis arrow
-        g2.drawLine(xf0 - arrows, xIny0 - scales, xf0, xIny0);
-        g2.drawLine(xf0 - arrows, xIny0 + scales, xf0, xIny0);
-        g2.drawLine(xf1 - arrows, xIny1 - scales, xf1, xIny1);
-        g2.drawLine(xf1 - arrows, xIny1 + scales, xf1, xIny1);
+    private int[] graphic(Graphics2D g2, int xf, int y0, int yf,
+            int xCoordNumbers, int yCoordNumbers, int xStringNumbers, int yStringNumbers) {
 
-        // y-axis arrow
-        g2.drawLine(yInx0 - scales, y0 + arrows, yInx0, y0);
-        g2.drawLine(yInx0 + scales, y0 + arrows, yInx0, y0);
-        g2.drawLine(yInx1 - scales, y1 + arrows, yInx1, y1);
-        g2.drawLine(yInx1 + scales, y1 + arrows, yInx1, y1);
+        int arrows = 10;
+        int scales = 5;
+        int[] data = new int[3];
+        data[0] = yf;
+        int origen = 6;
+        int distString = 20;
+        int x = 50;
+        int yInx = 50;
+        int xIny = yf;
 
-        // draw origin Point
-        g2.fillOval(x0 - (origen / 2), yf0 - (origen / 2), origen, origen);
-        g2.fillOval(x1 - (origen / 2), yf1 - (origen / 2), origen, origen);
-
-        // draw text "X" and draw text "Y"
-        g2.drawString("X", xf0 - distString / 2, xIny0 + distString);
-        g2.drawString("Y", yInx0 - distString,
+//        // x-axis
+        g2.drawLine(x, xIny, xf, xIny);
+//        // y-axis
+        g2.drawLine(yInx, y0, yInx, yf);
+//        // x-axis arrow
+        g2.drawLine(xf - arrows, xIny - scales, xf, xIny);
+        g2.drawLine(xf - arrows, xIny + scales, xf, xIny);
+//        // y-axis arrow
+        g2.drawLine(yInx - scales, y0 + arrows, yInx, y0);
+        g2.drawLine(yInx + scales, y0 + arrows, yInx, y0);
+//
+//        // draw origin Point
+        g2.fillOval(x - (origen / 2), yf - (origen / 2), origen, origen);
+//
+//        // draw text "X" and draw text "Y"
+        g2.drawString("X", xf - distString / 2, xIny + distString);
+        g2.drawString("Y", yInx - distString,
                 y0 + distString / 2);
-        g2.drawString("(0, 0)", x0 - distString, yf0 + distString);
-        g2.drawString("X", xf1 - distString / 2, xIny1 + distString);
-        g2.drawString("Y", yInx1 - distString,
-                y1 + distString / 2);
-        g2.drawString("(0, 0)", x1 - distString, yf1 + distString);
+        g2.drawString("(0, 0)", x - distString, yf + distString);
 
-        // numerate axis
-        int xCoordNumbers = 51;
-        int xStringNumbers = 10;
-        int yCoordNumbers = 101;
-        int yStringNumbers = 20;
-        int xLength = (xf0 - x0)
-                / xCoordNumbers;
-        int yLength = (yf0 - y0)
-                / yCoordNumbers;
-
-        int xCoordNumbers1 = 51;
-        int xStringNumbers1 = 10;
-        int yCoordNumbers1 = 2;
-        int yStringNumbers1 = 20;
-        int xLength1 = (xf1 - x1)
-                / xCoordNumbers1;
-        int yLength1 = (yf1 - y1)
-                / yCoordNumbers1;
+        int xLength = (xf - x)
+                / (xCoordNumbers - 1);
+        data[1] = xLength;
+        int yLength = (yf - y0)
+                / (yCoordNumbers - 1);
+        data[2] = yLength;
 
         // draw x-axis numbers
         for (int i = 1; i < xCoordNumbers; i++) {
-            g2.drawLine(x0 + (i * xLength), xIny0 - scales, x0 + (i * xLength), xIny0 + scales);
+            g2.drawLine(x + (i * xLength), xIny - scales, x + (i * xLength), xIny + scales);
             if ((double) (i % xStringNumbers) == 0) {
-                g2.drawString(Integer.toString(i), x0 + (i * xLength) - 3, xIny0 + distString);
-            }
-        }
-        for (int i = 1; i < xCoordNumbers1; i++) {
-            g2.drawLine(x1 + (i * xLength1), xIny1 - scales, x1 + (i * xLength1), xIny1 + scales);
-            if ((double) (i % xStringNumbers1) == 0) {
-                g2.drawString(Integer.toString(i), x1 + (i * xLength1) - 3, xIny1 + distString);
+                g2.drawString(Integer.toString(i), x + (i * xLength) - 3, xIny + distString);
             }
         }
 
         //draw y-axis numbers
         for (int i = 1; i < yCoordNumbers; i++) {
 
-            if ((double) (i % yStringNumbers) == 0) {
-                g2.drawLine(yInx0 - scales, yf0 - (i * yLength), yInx0 + scales, yf0 - (i * yLength));
+            if ((double) (i % 10) == 0) {
+                g2.drawLine(yInx - scales, yf - (i * yLength), yInx + scales, yf - (i * yLength));
             }
             if ((double) (i % yStringNumbers) == 0) {
-                g2.drawString(Integer.toString(i), yInx0 - distString, yf0 - (i * yLength));
+                g2.drawString(Integer.toString(i), yInx - distString, yf - (i * yLength));
             }
         }
-        for (int i = 1; i < yCoordNumbers1; i++) {
+        return data;
+    }
 
-            g2.drawLine(yInx1 - scales, yf1 - (i * yLength1), yInx1 + scales, yf1 - (i * yLength1));
-            g2.drawString(Integer.toString(i), yInx1 - distString, yf1 - (i * yLength1));
+    public LinkedList<CambiosSelectorValor> getList() {
+        return list;
+    }
+
+    public void setList(LinkedList<CambiosSelectorValor> list) {
+        this.list = list;
+    }
+
+    private void graphicData_1(Graphics2D g2, int[] data) {
+
+        if (!list.isEmpty()) {
+            int x = 50;
+            int xf = data[0];//depende del atributo yf del metodo graphic()
+            int yLen = data[2];//depende de la longitud de las muestran en Y (yLength) en el metodo graphic()
+            int com = 0;
+            int i = 0;
+            int yf = 0;
+            for (CambiosSelectorValor obj : list) {
+                i++;
+                int y = 50 + (data[1] * i);//depende de la longitud de las muestras en X (xLength) en el metodo graphic()
+                if (com < obj.getValor()) {
+                    yf = xf - ((obj.getValor() - com) * yLen);
+                } else if (com > obj.getValor()) {
+                    yf = xf + ((com - obj.getValor()) * yLen);
+                }
+                g2.drawLine(x, xf, y, yf);
+                x = y;
+                xf = yf;
+                com = obj.getValor();
+            }
         }
+    }
+
+    private void graphicData_2(Graphics2D g2, int[] data) {
+
+        if (!list.isEmpty()) {
+
+            int x = 50;
+            int xf = data[0];//depende del atributo yf del metodo graphic()
+            int yLen = data[2];//depende de la longitud de las muestran en Y (yLength) en el metodo graphic()
+            int i = 0;
+            int com = 0;
+            int yf = 0;
+            for (CambiosSelectorValor obj : list) {
+
+                int lig = obj.getLuz().compareTo(Boolean.FALSE);
+                i++;
+                int y = 50 + (data[1] * i);//depende de la longitud de las muestras en X (xLength) en el metodo graphic()
+                if (lig == 0 && com == 0) {
+                    yf = xf;
+                } else if (lig == 0 && com == 1) {
+                    yf = xf + (yLen);
+                } else if (lig == 1 && com == 0) {
+                    yf = xf - (yLen);
+                } else if (lig == 1 && com == 1) {
+                    yf = xf;
+                }
+                g2.drawLine(x, xf, y, yf);
+                System.out.println(i+":"+obj.getLuz());
+
+                x = y;
+                xf = yf;
+                com = lig;
+            }
+        }
+
     }
 
 }
