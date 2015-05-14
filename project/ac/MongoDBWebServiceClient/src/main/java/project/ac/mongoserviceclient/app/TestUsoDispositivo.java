@@ -34,7 +34,9 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         initComponents();
         port = getMongoDBPort();
         panel = new Panel();
+        fondo.setVisible(false);
         panel.setSize(fondo.getSize());
+        System.out.println(fondo.getSize());
         fondo.add(panel);
 
         nombreDispositivo = "First Device";
@@ -105,7 +107,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         sNivelLuz = new javax.swing.JSlider();
         tNivelLuz = new javax.swing.JLabel();
         fondo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        bGraphic = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(700, 700));
@@ -150,10 +152,10 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
             .addGap(0, 274, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bGraphic.setText("Monitorear");
+        bGraphic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bGraphicActionPerformed(evt);
             }
         });
 
@@ -174,17 +176,18 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
                                 .addComponent(tEstadoSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tNivelLuz, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(167, 167, 167)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(bGraphic)
                 .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +197,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(bGraphic))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bSelector)
@@ -226,6 +229,9 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
 
         actualizarValorAlmacenadoLuz(selectorValor);
         insertarNuevoValorCambio(selector, selectorValor);
+        if (fondo.isVisible()) {
+            monitorearCambioSectorValor();
+        }
     }//GEN-LAST:event_bSelectorActionPerformed
 
     private void sNivelLuzStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_sNivelLuzStateChanged
@@ -238,21 +244,25 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_sNivelLuzMouseReleased
         actualizarValorAlmacenadoNivel(selectorValor);
         insertarNuevoValorCambio(selector, selectorValor);
+        if (fondo.isVisible()) {
+            monitorearCambioSectorValor();
+        }
     }//GEN-LAST:event_sNivelLuzMouseReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bGraphicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGraphicActionPerformed
         // TODO add your handling code here:
         fondo.setVisible(!fondo.isVisible());
         if (fondo.isVisible()) {
             monitorearCambioSectorValor();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bGraphicActionPerformed
 
     private void monitorearCambioSectorValor() {
         LinkedList<CambiosSelectorValor> csv = (LinkedList<CambiosSelectorValor>)//
                 findAllCollection(CambiosSelectorValor.class.getCanonicalName());
-        for (CambiosSelectorValor obj : csv) {
-            panel.graphic(getGraphics(), obj.getValor(), obj.getLuz());
+        if (!csv.isEmpty()) {
+            panel.setList(csv);
+            repaint();
         }
     }
 
@@ -391,9 +401,9 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bGraphic;
     private javax.swing.JToggleButton bSelector;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSlider sNivelLuz;
