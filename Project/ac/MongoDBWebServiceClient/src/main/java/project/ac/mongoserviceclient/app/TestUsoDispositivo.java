@@ -5,6 +5,7 @@ import com.mongodb.util.JSON;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Set;
+import project.ac.mongodbwebservicemonitoring.Monitoring;
 import project.ac.mongoservice.MongoDB;
 import project.ac.mongoservice.MongoDB_Service;
 import project.ac.mongoserviceclient.data.CambiosSelectorValor;
@@ -12,7 +13,6 @@ import project.ac.mongoserviceclient.data.Dispositivo;
 import project.ac.mongoserviceclient.data.RelacionDispositivoSelector;
 import project.ac.mongoserviceclient.data.Selector;
 import project.ac.mongoserviceclient.data.SelectorValor;
-import project.ac.mongoserviceclient.tools.Panel;
 
 /**
  *
@@ -25,7 +25,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     private String nombreDispositivo;
     private Selector selector;
     private SelectorValor selectorValor;
-    private Panel panel;
+    private Monitoring Monitor;
 
     /**
      * Creates new form NewJFrame
@@ -33,11 +33,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     public TestUsoDispositivo() {
         initComponents();
         port = getMongoDBPort();
-        panel = new Panel();
-        fondo.setVisible(false);
-        panel.setSize(fondo.getSize());
-        System.out.println(fondo.getSize());
-        fondo.add(panel);
+        Monitor = null;
 
         nombreDispositivo = "First Device";
         cargarValoresSelector(nombreDispositivo);
@@ -106,7 +102,6 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         sNivelLuz = new javax.swing.JSlider();
         tNivelLuz = new javax.swing.JLabel();
-        fondo = new javax.swing.JPanel();
         bGraphic = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -141,17 +136,6 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         tNivelLuz.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tNivelLuz.setText("0");
 
-        javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
-        fondo.setLayout(fondoLayout);
-        fondoLayout.setHorizontalGroup(
-            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        fondoLayout.setVerticalGroup(
-            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
-
         bGraphic.setText("Monitorear");
         bGraphic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,10 +168,6 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(bGraphic)
                 .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +185,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
                     .addComponent(tNivelLuz))
                 .addGap(18, 18, 18)
                 .addComponent(sNivelLuz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,7 +207,7 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
 
         actualizarValorAlmacenadoLuz(selectorValor);
         insertarNuevoValorCambio(selector, selectorValor);
-        if (fondo.isVisible()) {
+        if (Monitor != null) {
             monitorearCambioSectorValor();
         }
     }//GEN-LAST:event_bSelectorActionPerformed
@@ -244,16 +222,19 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_sNivelLuzMouseReleased
         actualizarValorAlmacenadoNivel(selectorValor);
         insertarNuevoValorCambio(selector, selectorValor);
-        if (fondo.isVisible()) {
+        if (Monitor != null) {
             monitorearCambioSectorValor();
         }
     }//GEN-LAST:event_sNivelLuzMouseReleased
 
     private void bGraphicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGraphicActionPerformed
         // TODO add your handling code here:
-        fondo.setVisible(!fondo.isVisible());
-        if (fondo.isVisible()) {
+        if (Monitor == null) {
+            Monitor = new Monitoring("Web Service Monitoring");
             monitorearCambioSectorValor();
+        }else {
+            Monitor.dispose();
+            Monitor = null;
         }
     }//GEN-LAST:event_bGraphicActionPerformed
 
@@ -261,8 +242,8 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         LinkedList<CambiosSelectorValor> csv = (LinkedList<CambiosSelectorValor>)//
                 findAllCollection(CambiosSelectorValor.class.getCanonicalName());
         if (!csv.isEmpty()) {
-            panel.setList(csv);
-            repaint();
+            Monitor.getPanel().setList(csv);
+            Monitor.getPanel().repaint();
         }
     }
 
@@ -403,7 +384,6 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bGraphic;
     private javax.swing.JToggleButton bSelector;
-    private javax.swing.JPanel fondo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSlider sNivelLuz;

@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.ac.mongoserviceclient.tools;
+package project.uni.artefacto.data;
 
-import com.mongodb.BasicDBObject;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.LinkedList;
 import javax.swing.JPanel;
-import project.ac.mongoserviceclient.data.CambiosSelectorValor;
 
 /**
  *
@@ -65,7 +63,7 @@ public class Panel extends JPanel {
 //        // y-axis arrow
         g2.drawLine(yInx - scales, y0 + arrows, yInx, y0);
         g2.drawLine(yInx + scales, y0 + arrows, yInx, y0);
-//
+
 //        // draw origin Point
         g2.fillOval(x - (origen / 2), yf - (origen / 2), origen, origen);
 //
