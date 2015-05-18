@@ -94,14 +94,16 @@
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>MongoDBWebServiceMonitoring</artifactId>
-            <version>${project.version}</version>
+            <groupId>project.ac</groupId>
+            <artifactId>MongoLibraryAC</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>MongoLibraryAC</artifactId>
-            <version>${project.version}</version>
+            <groupId>project.ac</groupId>
+            <artifactId>MongoDBWebServiceMonitoring</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

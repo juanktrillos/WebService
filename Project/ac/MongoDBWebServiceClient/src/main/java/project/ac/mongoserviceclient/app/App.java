@@ -11,11 +11,12 @@ import java.util.LinkedList;
 import java.util.Set;
 import project.ac.mongoservice.MongoDB;
 import project.ac.mongoservice.MongoDB_Service;
-import project.ac.mongoserviceclient.data.Selector;
 
 /**
  *
- * @author JuanCamilo
+ * @author Olmedo Arcila Guzman - Mentor
+ * @author Juan Camilo Trillos Velosa - Ing. Multimedia
+ * @author Felipe Garaycochea Lozada - Ing. Multimedia
  */
 public class App {
 
@@ -53,7 +54,6 @@ public class App {
         String find = port.find(className, atributo, data);
         String[] found = find.split("&&");
         for (String f : found) {
-//            port.log("Object " + (i + 1) + ": " + found[i]);
             list.add(create(className, f));
         }
         return list;
@@ -64,7 +64,6 @@ public class App {
         String findAll = port.findAll(className);
         String[] foundAll = findAll.split("&&");
         for (int i = 0; i < foundAll.length; i++) {
-            System.out.println("Object " + (i + 1) + ": " + foundAll[i]);
             port.log("Object " + (i + 1) + ": " + foundAll[i]);
         }
     }
@@ -83,10 +82,7 @@ public class App {
         MongoDB_Service service = new MongoDB_Service();
         return service.getMongoDBPort();
     }
-
-    // Este metodo es tipico de un patron factory.
-    // Y sirve para cualquier cosa que herede de BasicDBObject
-    // Esa subclase debe tener constructor por defecto. Mandatory!
+    
     private static BasicDBObject create(String className, String data) {
         BasicDBObject o = null;
         try {
@@ -106,7 +102,6 @@ public class App {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             System.out.println("error create()");
         }
-
         return o;
     }
 }
