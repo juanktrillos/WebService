@@ -5,17 +5,18 @@
     <artifactId>MongoDBWebServiceMonitoring</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>MongoLibraryAC</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     <name>MongoDB Web Service Monitoring</name>
+    <dependencies>
+        <dependency>
+            <groupId>project.ac</groupId>
+            <artifactId>MongoLibraryAC</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

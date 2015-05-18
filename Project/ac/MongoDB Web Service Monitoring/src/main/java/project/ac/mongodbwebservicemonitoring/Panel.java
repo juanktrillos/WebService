@@ -14,7 +14,9 @@ import project.ac.mongoserviceclient.data.CambiosSelectorValor;
 
 /**
  *
- * @author JuanCamilo
+ * @author Olmedo Arcila Guzman - Mentor
+ * @author Juan Camilo Trillos Velosa - Ing. Multimedia
+ * @author Felipe Garaycochea Lozada - Ing. Multimedia
  */
 public class Panel extends JPanel {
 
@@ -64,21 +66,21 @@ public class Panel extends JPanel {
         int yInx = 50;
         int xIny = yf;
 
-//        // x-axis
+        // x-axis
         g2.drawLine(x, xIny, xf, xIny);
-//        // y-axis
+        // y-axis
         g2.drawLine(yInx, y0, yInx, yf);
-//        // x-axis arrow
+        // x-axis arrow
         g2.drawLine(xf - arrows, xIny - scales, xf, xIny);
         g2.drawLine(xf - arrows, xIny + scales, xf, xIny);
-//        // y-axis arrow
+        // y-axis arrow
         g2.drawLine(yInx - scales, y0 + arrows, yInx, y0);
         g2.drawLine(yInx + scales, y0 + arrows, yInx, y0);
 
-//        // draw origin Point
+        // draw origin Point
         g2.fillOval(x - (origen / 2), yf - (origen / 2), origen, origen);
-//
-//        // draw text "X" and draw text "Y"
+
+        // draw text "X" and draw text "Y"
         g2.drawString("X", xf - distString / 2, xIny + distString);
         g2.drawString("Y", yInx - distString,
                 y0 + distString / 2);

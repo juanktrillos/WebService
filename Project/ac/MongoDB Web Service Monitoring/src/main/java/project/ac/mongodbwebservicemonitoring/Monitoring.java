@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author JuanCamilo
+ * @author Olmedo Arcila Guzman - Mentor
+ * @author Juan Camilo Trillos Velosa - Ing. Multimedia
+ * @author Felipe Garaycochea Lozada - Ing. Multimedia
  */
 public class Monitoring extends JFrame {
 
@@ -36,12 +38,4 @@ public class Monitoring extends JFrame {
     public void setPanel(Panel panel) {
         this.panel = panel;
     }
-
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String[] args) {
-//
-//        Monitoring win = new Monitoring("MongoDB Web Service Monitoring");
-//    }
 }
