@@ -5,11 +5,9 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.util.JSON;
-import java.io.InputStream;
 import project.ac.mongolib.file.FileDriver;
 import java.net.UnknownHostException;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 import org.bson.types.BasicBSONList;
 
 /**
@@ -18,7 +16,7 @@ import org.bson.types.BasicBSONList;
 public class ConnectFactory {
 
     public static DB createConnection(MongoData data, boolean isCloudConnection) throws UnknownHostException {
-        MongoClient client = null;
+        MongoClient client;
         if (isCloudConnection) {
             String mongoCloudURI = data.getMongoURI();
             MongoClientURI uri = new MongoClientURI(mongoCloudURI);
@@ -38,7 +36,6 @@ public class ConnectFactory {
     }
 
     public static MongoData loadConnectionData(String key, DBObject fileData) {
-//        DBObject fileData = FileDriver.leerArchivo(InputStream);
         BasicBSONList collection = (BasicBSONList) (DBObject) fileData.get("dbs");
         DBObject aux = (DBObject) JSON.parse("{\"db-name\":\"" + key + "\"}");
         DBObject objectData = searchObjectInCollection(collection, aux);
