@@ -29,7 +29,9 @@ import project.ac.mongolib.file.FileDriver;
 
 /**
  *
- * @author JuanCamilo
+ * @author Olmedo Arcila Guzman - Mentor
+ * @author Juan Camilo Trillos Velosa - Ing. Multimedia
+ * @author Felipe Garaycochea Lozada - Ing. Multimedia
  */
 @WebService(serviceName = "MongoDB")
 public class MongoDB {
@@ -195,31 +197,6 @@ public class MongoDB {
 //</editor-fold>
 
     /**
-     * Used for server logging. The operation is oneway: provides no response
-     *
-     * @param text
-     */
-    @WebMethod(operationName = "log")
-    @Oneway
-    public void logServer(@WebParam(name = "message") String text) {
-        // log message onto server
-        getServletContext().log(text);
-    }
-
-    /**
-     * Get ServletContext.
-     *
-     * @return ServletContext object
-     */
-    private ServletContext getServletContext() {
-        return (ServletContext) webServiceContext.getMessageContext().get(
-                MessageContext.SERVLET_CONTEXT);
-    }
-
-    // Este metodo es tipico de un patron factory.
-    // Y sirve para cualquier cosa que herede de BasicDBObject
-    // Esa subclase debe tener constructor por defecto. Mandatory!
-    /**
      *
      * @param className
      * @param data
@@ -268,4 +245,26 @@ public class MongoDB {
         return (DBObject) JSON.parse(cad);
     }
 //</editor-fold>
+
+    /**
+     * Used for server logging. The operation is oneway: provides no response
+     *
+     * @param text
+     */
+    @WebMethod(operationName = "log")
+    @Oneway
+    public void logServer(@WebParam(name = "message") String text) {
+        // log message onto server
+        getServletContext().log(text);
+    }
+
+    /**
+     * Get ServletContext.
+     *
+     * @return ServletContext object
+     */
+    private ServletContext getServletContext() {
+        return (ServletContext) webServiceContext.getMessageContext().get(
+                MessageContext.SERVLET_CONTEXT);
+    }
 }
