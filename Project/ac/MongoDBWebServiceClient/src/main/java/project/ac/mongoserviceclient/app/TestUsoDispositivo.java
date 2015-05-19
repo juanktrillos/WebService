@@ -241,9 +241,11 @@ public class TestUsoDispositivo extends javax.swing.JFrame {
         if (Monitor == null) {
             Monitor = new Monitoring("Web Service Monitoring");
             monitorearCambioSectorValor();
+            bGraphic.setText("Close Monitoring");
         } else {
             Monitor.dispose();
             Monitor = null;
+            bGraphic.setText("Monitorear");
         }
     }//GEN-LAST:event_bGraphicActionPerformed
 
