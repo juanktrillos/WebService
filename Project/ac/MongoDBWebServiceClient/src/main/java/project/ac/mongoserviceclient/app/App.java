@@ -22,17 +22,17 @@ public class App {
 
     private static MongoDB port;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-
-        App app = new App();
-        port = app.getMongoDBPort();
-        port.log("MongoDB STARTED");
-        port.log("MongoDB FINISHED");
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//
+//        App app = new App();
+//        port = app.getMongoDBPort();
+//        port.log("MongoDB STARTED");
+//        port.log("MongoDB FINISHED");
+//    }
 
     private void addCollection(String className, String data) {
 
