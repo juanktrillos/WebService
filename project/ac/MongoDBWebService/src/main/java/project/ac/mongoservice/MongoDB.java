@@ -29,7 +29,9 @@ import project.ac.mongolib.file.FileDriver;
 
 /**
  *
- * @author JuanCamilo
+ * @author Olmedo Arcila Guzman - Mentor
+ * @author Juan Camilo Trillos Velosa - Ing. Multimedia
+ * @author Felipe Garaycochea Lozada - Ing. Multimedia
  */
 @WebService(serviceName = "MongoDB")
 public class MongoDB {
@@ -53,13 +55,9 @@ public class MongoDB {
         BasicDBObject obj = create(className, data);
         if (obj != null) {
             try {
-                System.out.println("------------- AÑADIENDO A LA BASE DE DATOS -------------");
-                getServletContext().log("add: class = " + className);
-                getServletContext().log("add: data  = " + data);
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.insert(obj);
-                System.out.println("------------- OBJETO AÑADIDO -------------");
             } catch (UnknownHostException ex) {
                 return "Object Coundnt be Inserted";
             }
@@ -84,13 +82,9 @@ public class MongoDB {
         BasicDBObject obj = create(className, data);
         if (obj != null) {
             try {
-                System.out.println("------------- REMOVIENDO DE LA BASE DE DATOS -------------");
-                getServletContext().log("delete: class = " + className);
-                getServletContext().log("delete: data  = " + data);
                 DBObject fileData = chargeJson();
                 MongoHandler mongoHandler = new MongoHandler("service", fileData);
                 mongoHandler.remove(obj);
-                System.out.println("------------- OBJETO REMOVIDO -------------");
             } catch (UnknownHostException ex) {
                 return "Object Coundnt be Removed";
             }
@@ -116,11 +110,7 @@ public class MongoDB {
         String found = "";
 
         try {
-            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
-            getServletContext().log("find: class = " + className);
-            getServletContext().log("find: atribute  = " + atribute);
-            getServletContext().log("find: data  = " + data);
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             r = (LinkedList<BasicDBObject>) mongoHandler.find(obj.getClass(), atribute, data);
@@ -129,10 +119,8 @@ public class MongoDB {
                 return "Object not Found or Doesnt Exist";
             } else {
                 for (BasicDBObject ob : r) {
-                    System.out.println("OBJETO ENCONTRADO: " + ob.toString());
                     found += ob.toString() + "&&";
                 }
-                System.out.println("------------- OBJETO(S) ENCONTRADO(S) -------------");
                 return found;
             }
         } catch (UnknownHostException ex) {
@@ -155,10 +143,7 @@ public class MongoDB {
         String foundAll = "";
 
         try {
-            System.out.println("------------- BUSCANDO EN LA BASE DE DATOS -------------");
-            System.out.println("class: " + className);
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
-            getServletContext().log("findAll: class = " + className);
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             rAll = (LinkedList<BasicDBObject>) mongoHandler.findAll(obj.getClass());
@@ -167,10 +152,8 @@ public class MongoDB {
                 return "Objects not Found or Dont Exist";
             } else {
                 for (BasicDBObject ob : rAll) {
-                    System.out.println("OBJETO ENCONTRADO: " + ob.toString());
                     foundAll += ob.toString() + "&&";
                 }
-                System.out.println("------------- OBJETO(S) ENCONTRADO(S) -------------");
                 return foundAll;
             }
         } catch (UnknownHostException ex) {
@@ -198,12 +181,6 @@ public class MongoDB {
             @WebParam(name = "atributoClave") String atributoClave, @WebParam(name = "atributoValor") String atributoValor) {
 
         try {
-            System.out.println("------------- MODIFICANDO LA BASE DE DATOS -------------");
-            getServletContext().log("update: class = " + className);
-            getServletContext().log("update: criterioClave = " + criterioClave);
-            getServletContext().log("update: criterioValor = " + criterioValor);
-            getServletContext().log("update: atributoClave = " + atributoClave);
-            getServletContext().log("update: atributoValor = " + atributoValor);
             BasicDBObject obj = (BasicDBObject) Class.forName(className).newInstance();
             CriterioActualizacion cAct = new CriterioActualizacion();
             cAct.setCriterio(criterioClave, criterioValor);
@@ -212,7 +189,6 @@ public class MongoDB {
             DBObject fileData = chargeJson();
             MongoHandler mongoHandler = new MongoHandler("service", fileData);
             mongoHandler.update(obj.getClass(), cAct);
-            System.out.println("------------- BASE DE DATOS MODIFICADA-------------");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnknownHostException ex) {
             return "There was a Mistake or a Error, Try Again";
         }
@@ -220,31 +196,6 @@ public class MongoDB {
     }
 //</editor-fold>
 
-    /**
-     * Used for server logging. The operation is oneway: provides no response
-     *
-     * @param text
-     */
-    @WebMethod(operationName = "log")
-    @Oneway
-    public void logServer(@WebParam(name = "message") String text) {
-        // log message onto server
-        getServletContext().log(text);
-    }
-
-    /**
-     * Get ServletContext.
-     *
-     * @return ServletContext object
-     */
-    private ServletContext getServletContext() {
-        return (ServletContext) webServiceContext.getMessageContext().get(
-                MessageContext.SERVLET_CONTEXT);
-    }
-
-    // Este metodo es tipico de un patron factory.
-    // Y sirve para cualquier cosa que herede de BasicDBObject
-    // Esa subclase debe tener constructor por defecto. Mandatory!
     /**
      *
      * @param className
@@ -294,4 +245,26 @@ public class MongoDB {
         return (DBObject) JSON.parse(cad);
     }
 //</editor-fold>
+
+    /**
+     * Used for server logging. The operation is oneway: provides no response
+     *
+     * @param text
+     */
+    @WebMethod(operationName = "log")
+    @Oneway
+    public void logServer(@WebParam(name = "message") String text) {
+        // log message onto server
+        getServletContext().log(text);
+    }
+
+    /**
+     * Get ServletContext.
+     *
+     * @return ServletContext object
+     */
+    private ServletContext getServletContext() {
+        return (ServletContext) webServiceContext.getMessageContext().get(
+                MessageContext.SERVLET_CONTEXT);
+    }
 }

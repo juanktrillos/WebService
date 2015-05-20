@@ -1,4 +1,3 @@
-
 package project.ac.mongolib.driven;
 
 import com.mongodb.BasicDBObject;
@@ -6,46 +5,39 @@ import com.mongodb.BasicDBObject;
 /**
  *
  */
-public class CriterioActualizacion extends BasicDBObject
-{
+public class CriterioActualizacion extends BasicDBObject {
+
     public static final String NOMBRECRITERIO = "nombreCriterio";
     public static final String VALORCRITERIO = "valorCriterio";
     public static final String NOMBREATRIBUTO = "nombreAtributo";
     public static final String VALORATRIBUTO = "valorAtributo";
-    
-    public CriterioActualizacion ()
-    {
+
+    public CriterioActualizacion() {
     }
-    
-    public void setCriterio(String atributo, String valor)
-    {
+
+    public void setCriterio(String atributo, String valor) {
         put(NOMBRECRITERIO, atributo);
         put(VALORCRITERIO, valor);
     }
-    
-    public void setNuevoValor (String atributo, Object valor)
-    {
+
+    public void setNuevoValor(String atributo, Object valor) {
         put(NOMBREATRIBUTO, atributo);
         put(VALORATRIBUTO, valor);
     }
-    
-    public String getNombreCriterio ()
-    {
+
+    public String getNombreCriterio() {
         return getString(NOMBRECRITERIO);
     }
-    
-    public String getValorCriterio ()
-    {
+
+    public String getValorCriterio() {
         return getString(VALORCRITERIO);
     }
-    
-    public String getNombreAtributo ()
-    {
+
+    public String getNombreAtributo() {
         return getString(NOMBREATRIBUTO);
     }
-    
-    public Object getValorAtributo ()
-    {
+
+    public Object getValorAtributo() {
         return get(VALORATRIBUTO);
     }
 }

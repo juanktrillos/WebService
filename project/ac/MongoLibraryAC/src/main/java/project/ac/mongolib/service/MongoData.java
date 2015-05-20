@@ -1,20 +1,17 @@
-
 package project.ac.mongolib.service;
 
 /**
  *
  */
-public class MongoData
-{
-    
+public class MongoData {
+
     private String userName;
     private String password;
     private int port;
     private String dbName;
     private String host;
 
-    public MongoData(String userName, String password, String host, int port, String dbName)
-    {
+    public MongoData(String userName, String password, String host, int port, String dbName) {
         this.userName = userName;
         this.password = password;
         this.host = host;
@@ -27,8 +24,7 @@ public class MongoData
      *
      * @return the value of host
      */
-    public String getHost()
-    {
+    public String getHost() {
         return host;
     }
 
@@ -37,8 +33,7 @@ public class MongoData
      *
      * @param host new value of host
      */
-    public void setHost(String host)
-    {
+    public void setHost(String host) {
         this.host = host;
     }
 
@@ -47,8 +42,7 @@ public class MongoData
      *
      * @return the value of dbName
      */
-    public String getDbName()
-    {
+    public String getDbName() {
         return dbName;
     }
 
@@ -57,8 +51,7 @@ public class MongoData
      *
      * @param dbName new value of dbName
      */
-    public void setDbName(String dbName)
-    {
+    public void setDbName(String dbName) {
         this.dbName = dbName;
     }
 
@@ -67,8 +60,7 @@ public class MongoData
      *
      * @return the value of port
      */
-    public int getPort()
-    {
+    public int getPort() {
         return port;
     }
 
@@ -77,8 +69,7 @@ public class MongoData
      *
      * @param port new value of port
      */
-    public void setPort(int port)
-    {
+    public void setPort(int port) {
         this.port = port;
     }
 
@@ -87,8 +78,7 @@ public class MongoData
      *
      * @return the value of password
      */
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
@@ -97,8 +87,7 @@ public class MongoData
      *
      * @param password new value of password
      */
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -107,8 +96,7 @@ public class MongoData
      *
      * @return the value of userName
      */
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
@@ -117,17 +105,15 @@ public class MongoData
      *
      * @param userName new value of userName
      */
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getMongoURI()
-    {
+    public String getMongoURI() {
         String mongoURI = "mongodb://";
         mongoURI += userName + ":" + password;
         mongoURI += "@ds0" + port;
-        mongoURI += "." + host + ":"+ port;
+        mongoURI += "." + host + ":" + port;
         mongoURI += "/" + dbName;
         return mongoURI;
     }
